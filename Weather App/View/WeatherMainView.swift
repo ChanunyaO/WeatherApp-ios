@@ -36,7 +36,14 @@ struct WeatherMainView: View {
                                             Text(weatherManager.dailyWeatherList[i].dateMonth)
                                                 .padding(.leading, 10)
                                                 .padding(.trailing, 15)
-                                            Text(weatherManager.dailyWeatherList[i].dayOfWeek)
+                                            if weatherManager.dailyWeatherList[i].isToday && !weatherManager.dailyWeatherList[i].isTomorrow {
+                                                Text("Today")
+                                            } else if !weatherManager.dailyWeatherList[i].isToday && weatherManager.dailyWeatherList[i].isTomorrow {
+                                                Text("Tomorrow")
+                                            } else {
+                                                Text(weatherManager.dailyWeatherList[i].dayOfWeek)
+                                            }
+                                            
                                             Spacer()
                                             Text("\(String(format: "%.1f", weatherManager.dailyWeatherList[i].minTemperature))°/\(String(format: "%.1f", weatherManager.dailyWeatherList[i].maxTemperature))°")
                                                 .padding(.trailing, 15)
@@ -54,7 +61,6 @@ struct WeatherMainView: View {
             } // NavigationView
         }
         .onAppear {
-            print("hi")
             weatherManager.getMaxMinTemperature()
             weatherManager.getHourlyTemp()
         } // onAppear

@@ -14,6 +14,8 @@ struct DailyWeather {
     let dayOfWeek: String
     let maxTemperature: Double
     let minTemperature: Double
+    let isToday: Bool
+    let isTomorrow: Bool
 }
 
 struct Hourly {
@@ -51,9 +53,15 @@ class WeatherManager: NSObject, ObservableObject {
                             let dailyTemperatureMax = dailyTemperature["temperature_2m_max"] as! [Double]
                             
                             let dateFormatter = DateFormatter()
-                            dateFormatter.dateFormat = "yyyy-MM-dd"
+                            dateFormatter.dateFormat = "yyyy-M-d"
                             
-                            let calendar = Calendar.current
+                            let current = Calendar.current
+                            let currentComponent = current.dateComponents([.year, .month, .day], from: Date())
+                            let today = "\(currentComponent.year! - 543)-\(currentComponent.month!)-\(currentComponent.day!)"
+                            
+                            let tomorrowBE = current.date(byAdding: .day, value: 1, to: Date())!
+                            let tomorrowComponent = current.dateComponents([.year, .month, .day], from: tomorrowBE)
+                            let tomorrow = "\(tomorrowComponent.year! - 543)-\(tomorrowComponent.month!)-\(tomorrowComponent.day!)"
                             
                             for i in 0..<dates.count {
                                 if let dateFormatting = dateFormatter.date(from: dates[i]) {
@@ -68,7 +76,17 @@ class WeatherManager: NSObject, ObservableObject {
                                     outputFormatter.dateFormat = "MMMM d"
                                     let monthDate = outputFormatter.string(from: dateFormatting)
                                     
-                                    let dailyWeather = DailyWeather(date: dates[i], dateMonth: dateMonth, monthDate: monthDate, dayOfWeek: dayOfWeek, maxTemperature: dailyTemperatureMax[i], minTemperature: dailyTemperatureMin[i])
+                                    var isToday = false
+                                    if today == dateFormatter.string(from: dateFormatting) {
+                                        isToday = true
+                                    }
+                                    
+                                    var isTomorrow = false
+                                    if tomorrow == dateFormatter.string(from: dateFormatting) {
+                                        isTomorrow = true
+                                    }
+                                    
+                                    let dailyWeather = DailyWeather(date: dates[i], dateMonth: dateMonth, monthDate: monthDate, dayOfWeek: dayOfWeek, maxTemperature: dailyTemperatureMax[i], minTemperature: dailyTemperatureMin[i], isToday: isToday, isTomorrow: isTomorrow)
                                     self.dailyWeatherList.append(dailyWeather)
                                 } else {
                                     print("Invalid date format")
