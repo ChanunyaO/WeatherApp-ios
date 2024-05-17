@@ -17,9 +17,9 @@ struct HourlyWeatherView: View {
                 ForEach(0..<weatherManager.hourlyTemperatureList.count, id: \.self) { i in
                     if weatherManager.hourlyTemperatureList[i].date == dailyWeather.date {
                         HStack {
-                            Text("\(weatherManager.hourlyTemperatureList[i].timeTemp.time)")
+                            Text("\(weatherManager.hourlyTemperatureList[i].time)")
                             Spacer()
-                            Text("\(String(format: "%.1f", weatherManager.hourlyTemperatureList[i].timeTemp.temperature))°")
+                            Text("\(String(format: "%.1f", weatherManager.hourlyTemperatureList[i].temperature))°")
                         }
                         .padding(.vertical, 5)
                         .padding(.horizontal, 50)

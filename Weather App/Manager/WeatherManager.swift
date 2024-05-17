@@ -20,12 +20,8 @@ struct DailyWeather {
 
 struct Hourly {
     let date: String
-    let timeTemp: TimeTemp
-    
-    struct TimeTemp {
-        let time: String
-        let temperature: Double
-    }
+    let time: String
+    let temperature: Double
 }
 
 class WeatherManager: NSObject, ObservableObject {
@@ -135,7 +131,7 @@ class WeatherManager: NSObject, ObservableObject {
                                     outputFormatter.dateFormat = "yyyy-MM-dd'"
                                     let date = outputFormatter.string(from: dateFormatting)
                                     
-                                    let hourTemp = Hourly(date: date, timeTemp: Hourly.TimeTemp(time: time, temperature: temp[i]))
+                                    let hourTemp = Hourly(date: date, time: time, temperature: temp[i])
                                     self.hourlyTemperatureList.append(hourTemp)
                                 } else {
                                     print("Invalid date format")
