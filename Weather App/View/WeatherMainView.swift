@@ -23,10 +23,10 @@ struct WeatherMainView: View {
                                 HourlyWeatherView(dailyWeather: $weatherManager.dailyWeatherList[0])
                             }, label: {
                                 Text("\(String(format: "%.1f", weatherManager.dailyWeatherList[0].minTemperature))°/\(String(format: "%.1f", weatherManager.dailyWeatherList[0].maxTemperature))°")
-                                    .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                                    .bold()
+                                    .font(.system(size: 40, weight: .bold))
                                     .foregroundStyle(.white)
                             })
+                            .padding(.top, 20)
                             VStack (alignment: .leading) {
                                 ForEach(0..<weatherManager.dailyWeatherList.count, id: \.self) { i in
                                     NavigationLink(destination: {

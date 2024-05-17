@@ -21,9 +21,9 @@ struct HourlyWeatherView: View {
                             Spacer()
                             Text("\(String(format: "%.1f", weatherManager.hourlyTemperatureList[i].timeTemp.temperature))°")
                         }
-                        .padding(.horizontal, 40)
+                        .padding(.vertical, 5)
+                        .padding(.horizontal, 50)
                         .foregroundStyle(.white)
-                        .padding(15)
                     }
                 }
             }
