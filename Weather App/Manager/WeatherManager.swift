@@ -10,6 +10,7 @@ import Foundation
 struct DailyWeather {
     var date: String
     let dateMonth: String
+    let monthDate: String
     let dayOfWeek: String
     let maxTemperature: Double
     let minTemperature: Double
@@ -61,10 +62,13 @@ class WeatherManager: NSObject, ObservableObject {
                                     outputFormatter.dateFormat = "EEEE"
                                     let dayOfWeek = outputFormatter.string(from: dateFormatting)
                                     
-                                    outputFormatter.dateFormat = "dd/MM"
-                                    let date = outputFormatter.string(from: dateFormatting)
+                                    outputFormatter.dateFormat = "d/M"
+                                    let dateMonth = outputFormatter.string(from: dateFormatting)
                                     
-                                    let dailyWeather = DailyWeather(date: dates[i], dateMonth: date, dayOfWeek: dayOfWeek, maxTemperature: dailyTemperatureMax[i], minTemperature: dailyTemperatureMin[i])
+                                    outputFormatter.dateFormat = "MMMM d"
+                                    let monthDate = outputFormatter.string(from: dateFormatting)
+                                    
+                                    let dailyWeather = DailyWeather(date: dates[i], dateMonth: dateMonth, monthDate: monthDate, dayOfWeek: dayOfWeek, maxTemperature: dailyTemperatureMax[i], minTemperature: dailyTemperatureMin[i])
                                     self.dailyWeatherList.append(dailyWeather)
                                 } else {
                                     print("Invalid date format")

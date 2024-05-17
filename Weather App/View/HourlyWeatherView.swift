@@ -21,12 +21,14 @@ struct HourlyWeatherView: View {
                             Spacer()
                             Text("\(String(format: "%.1f", weatherManager.hourlyTemperatureList[i].timeTemp.temperature))°")
                         }
+                        .padding(.horizontal, 40)
                         .foregroundStyle(.white)
                         .padding(15)
                     }
                 }
             }
         }
-        .navigationTitle("\(dailyWeather.dayOfWeek), \(dailyWeather.dateMonth)")
+        .background(Color("carolina"))
+        .navigationTitle("\(dailyWeather.dayOfWeek), \(dailyWeather.monthDate)")
     }
 }
